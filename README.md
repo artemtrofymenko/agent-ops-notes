@@ -25,37 +25,37 @@ flowchart TB
 
   subgraph GOV["GOVERNANCE - what gets in, and how a rule takes effect"]
     direction LR
-    SEL["Selection<br/>third-party assessment gate<br/>4 assessed, 0 installed, 2 ideas taken"]
-    ENF["Enforcement<br/>rules injected at every session start<br/>sentinel log proves it fired"]
+    SEL["Selection<br/>third-party gate<br/>4 assessed, 0 adopted<br/>2 ideas taken"]
+    ENF["Enforcement<br/>rules injected at<br/>every session start<br/>sentinel proves it"]
   end
 
   subgraph AG["AGENTS - interchangeable workers, one shared contract"]
     direction LR
-    FULL["Terminal and desktop agents<br/>Claude Code, Codex CLI, desktop assistant<br/>full tool access"]
+    FULL["Terminal and desktop<br/>Claude Code, Codex,<br/>desktop assistant<br/>full tool access"]
     SH["Server agent<br/>always-on VPS"]
     GPT["Chat tools<br/>no tool access"]
   end
 
-  GATE{{"HUMAN GATE<br/>promotes to live, approves state changes,<br/>installs untrusted code"}}
+  GATE{{"HUMAN GATE<br/>promotes to live<br/>approves changes<br/>installs untrusted"}}
 
   subgraph STATE["DURABLE STATE - what survives the session"]
     direction LR
-    MEM["Curated memory over MCP<br/>begin_work and end_work<br/>verified vs not verified<br/>decision records, project registry"]
-    WIKI["Knowledge wiki in git<br/>inbox to staging to live<br/>BM25 search, lint and CI"]
+    MEM["Curated memory (MCP)<br/>begin_work / end_work<br/>verified vs unverified<br/>decisions, registry"]
+    WIKI["Knowledge wiki in git<br/>inbox, staging, live<br/>BM25 search, lint, CI"]
   end
 
   subgraph SAFE["RECOVERY - backups are not the discipline, restores are"]
     direction LR
-    SNAP["Snapshots and rollback notes"]
-    DRILL["Scheduled restore drills<br/>and failure smoke tests"]
+    SNAP["Snapshots and<br/>rollback notes"]
+    DRILL["Restore drills<br/>and smoke tests"]
   end
 
-  MEAS["MEASUREMENT<br/>weekly self-assessment vs an independent judge<br/>the divergence recalibrates governance"]
+  MEAS["MEASUREMENT<br/>weekly self-assessment<br/>vs independent judge<br/>the gap is the signal"]
 
   GOV ==> AG
   FULL --> GATE
-  SH -.->|"reports only, never commits"| GATE
-  GPT -.->|"capsule document, no direct write"| GATE
+  SH -.->|"reports, never commits"| GATE
+  GPT -.->|"capsule, no write"| GATE
   GATE ==> STATE
   MEM --> WIKI
   STATE --> SAFE
