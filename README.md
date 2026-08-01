@@ -52,7 +52,7 @@ flowchart TB
     DRILL["Scheduled restore drills<br/>and failure smoke tests"]
   end
 
-  MEAS["MEASUREMENT<br/>weekly self-assessment scored against an independent judge<br/>the divergence between them is the only honest signal"]
+  MEAS["MEASUREMENT<br/>weekly self-assessment scored against an independent judge<br/>the divergence between them is the only honest signal<br/>and it is what recalibrates the governance layer"]
 
   GOV ==> AG
   CC --> GATE
@@ -60,12 +60,10 @@ flowchart TB
   DH --> GATE
   SH -.->|"reports only, never commits"| GATE
   GPT -.->|"capsule document, no direct write"| GATE
-  GATE ==> MEM
-  GATE ==> WIKI
+  GATE ==> STATE
   MEM --> WIKI
   STATE --> SAFE
   STATE --> MEAS
-  MEAS -.->|"recalibrates"| GOV
 
   classDef gov fill:#0f2b46,stroke:#08192b,color:#ffffff
   classDef agent fill:#e8f0fe,stroke:#3c6fb5,color:#132a4a
