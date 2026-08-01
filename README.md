@@ -31,9 +31,7 @@ flowchart TB
 
   subgraph AG["AGENTS - interchangeable workers, one shared contract"]
     direction LR
-    CC["Claude Code<br/>terminal"]
-    CX["Codex CLI<br/>terminal"]
-    DH["Desktop assistant<br/>daily driver"]
+    FULL["Terminal and desktop agents<br/>Claude Code, Codex CLI, desktop assistant<br/>full tool access"]
     SH["Server agent<br/>always-on VPS"]
     GPT["Chat tools<br/>no tool access"]
   end
@@ -52,12 +50,10 @@ flowchart TB
     DRILL["Scheduled restore drills<br/>and failure smoke tests"]
   end
 
-  MEAS["MEASUREMENT<br/>weekly self-assessment scored against an independent judge<br/>the divergence between them is the only honest signal<br/>and it is what recalibrates the governance layer"]
+  MEAS["MEASUREMENT<br/>weekly self-assessment vs an independent judge<br/>the divergence recalibrates governance"]
 
   GOV ==> AG
-  CC --> GATE
-  CX --> GATE
-  DH --> GATE
+  FULL --> GATE
   SH -.->|"reports only, never commits"| GATE
   GPT -.->|"capsule document, no direct write"| GATE
   GATE ==> STATE
@@ -65,7 +61,7 @@ flowchart TB
   STATE --> SAFE
   STATE --> MEAS
 
-  classDef gov fill:#0f2b46,stroke:#08192b,color:#ffffff
+  classDef gov fill:#dde7f3,stroke:#2c5282,color:#16304d
   classDef agent fill:#e8f0fe,stroke:#3c6fb5,color:#132a4a
   classDef state fill:#f1ecff,stroke:#6f4fc0,color:#241a45
   classDef gate fill:#dff5e6,stroke:#2f8f5b,color:#0f3320
@@ -73,7 +69,7 @@ flowchart TB
   classDef meas fill:#fde8ef,stroke:#b8436b,color:#3d0f20
 
   class SEL,ENF gov
-  class CC,CX,DH,SH,GPT agent
+  class FULL,SH,GPT agent
   class MEM,WIKI state
   class GATE gate
   class SNAP,DRILL safe
