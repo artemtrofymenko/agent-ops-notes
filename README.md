@@ -22,51 +22,64 @@ Since the first version of this write-up, three more failure modes showed up tha
 
 ```mermaid
 flowchart TB
-    subgraph Agents
-        CC[Claude Code<br/>terminal agent]
-        CX[Codex CLI<br/>terminal agent]
-        DH[Desktop assistant<br/>daily driver]
-        SH[Server agent<br/>always-on, Linux VPS]
-        GPT[Chat tools<br/>no direct access]
-    end
 
-    subgraph Memory["Shared curated memory (MCP service)"]
-        BW[begin_work / end_work rituals]
-        DEC[Decision records]
-        HO[Structured handoffs<br/>verified / not-verified]
-        REG[Project registry]
-    end
+  subgraph GOV["GOVERNANCE - what gets in, and how a rule takes effect"]
+    direction LR
+    SEL["Selection<br/>third-party assessment gate<br/>4 assessed, 0 installed, 2 ideas taken"]
+    ENF["Enforcement<br/>rules injected at every session start<br/>sentinel log proves it fired"]
+  end
 
-    subgraph Wiki["Knowledge wiki (private git repo)"]
-        RAW[Raw sources]
-        STG[Inbox -> staging -> human review]
-        LIVE[Live pages + full-text search]
-        CI[Lint + CI on every push]
-    end
+  subgraph AG["AGENTS - interchangeable workers, one shared contract"]
+    direction LR
+    CC["Claude Code<br/>terminal"]
+    CX["Codex CLI<br/>terminal"]
+    DH["Desktop assistant<br/>daily driver"]
+    SH["Server agent<br/>always-on VPS"]
+    GPT["Chat tools<br/>no tool access"]
+  end
 
-    subgraph Safety["Supervision layer"]
-        HITL[Human-in-the-loop approval<br/>for guarded actions]
-        SNAP[Snapshots / rollback / restore drills]
-        TG[Telegram command surface]
-    end
+  GATE{{"HUMAN GATE<br/>promotes to live, approves state changes,<br/>installs untrusted code"}}
 
-    subgraph Meta["Meta layers"]
-        MEAS[Measurement<br/>weekly self-eval vs judge]
-        ENF[Enforcement<br/>rules injected per session]
-        SEL[Selection<br/>third-party assessment gate]
-    end
+  subgraph STATE["DURABLE STATE - what survives the session"]
+    direction LR
+    MEM["Curated memory over MCP<br/>begin_work and end_work<br/>verified vs not verified<br/>decision records, project registry"]
+    WIKI["Knowledge wiki in git<br/>inbox to staging to live<br/>BM25 search, lint and CI"]
+  end
 
-    CC --> Memory
-    CX --> Memory
-    DH --> Memory
-    SH --> Memory
-    GPT -.capsules, no direct write.-> STG
-    Memory --> Wiki
-    SH --> CI
-    SH --> TG
-    Agents --> HITL
-    HITL --> SNAP
-    Meta --> Agents
+  subgraph SAFE["RECOVERY - backups are not the discipline, restores are"]
+    direction LR
+    SNAP["Snapshots and rollback notes"]
+    DRILL["Scheduled restore drills<br/>and failure smoke tests"]
+  end
+
+  MEAS["MEASUREMENT<br/>weekly self-assessment scored against an independent judge<br/>the divergence between them is the only honest signal"]
+
+  GOV ==> AG
+  CC --> GATE
+  CX --> GATE
+  DH --> GATE
+  SH -.->|"reports only, never commits"| GATE
+  GPT -.->|"capsule document, no direct write"| GATE
+  GATE ==> MEM
+  GATE ==> WIKI
+  MEM --> WIKI
+  STATE --> SAFE
+  STATE --> MEAS
+  MEAS -.->|"recalibrates"| GOV
+
+  classDef gov fill:#0f2b46,stroke:#08192b,color:#ffffff
+  classDef agent fill:#e8f0fe,stroke:#3c6fb5,color:#132a4a
+  classDef state fill:#f1ecff,stroke:#6f4fc0,color:#241a45
+  classDef gate fill:#dff5e6,stroke:#2f8f5b,color:#0f3320
+  classDef safe fill:#fff2e0,stroke:#c07d1e,color:#3d2707
+  classDef meas fill:#fde8ef,stroke:#b8436b,color:#3d0f20
+
+  class SEL,ENF gov
+  class CC,CX,DH,SH,GPT agent
+  class MEM,WIKI state
+  class GATE gate
+  class SNAP,DRILL safe
+  class MEAS meas
 ```
 
 ### Layer 1: Shared curated memory - the anti-amnesia layer
