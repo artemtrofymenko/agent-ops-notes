@@ -31,12 +31,12 @@ flowchart TB
 
   subgraph AG["AGENTS - interchangeable workers, one shared contract"]
     direction LR
-    FULL["Terminal and desktop<br/>Claude Code, Codex,<br/>desktop assistant<br/>full tool access"]
+    FULL["Claude Code, Codex CLI,<br/>desktop assistant<br/>full tool access"]
     SH["Server agent<br/>always-on VPS"]
     GPT["Chat tools<br/>no tool access"]
   end
 
-  GATE{{"HUMAN GATE<br/>promotes to live<br/>approves changes<br/>installs untrusted"}}
+  GATE{{"HUMAN GATE<br/>promotes to live<br/>approves changes<br/>installs untrusted code"}}
 
   subgraph STATE["DURABLE STATE - what survives the session"]
     direction LR
@@ -44,7 +44,7 @@ flowchart TB
     WIKI["Knowledge wiki in git<br/>inbox, staging, live<br/>BM25 search, lint, CI"]
   end
 
-  subgraph SAFE["RECOVERY - backups are not the discipline, restores are"]
+  subgraph SAFE["RECOVERY - the discipline is the restore, not the backup"]
     direction LR
     SNAP["Snapshots and<br/>rollback notes"]
     DRILL["Restore drills<br/>and smoke tests"]
