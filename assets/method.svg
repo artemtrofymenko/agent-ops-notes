@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 690" width="1200" height="690" role="img" aria-labelledby="t d">
+  <title id="t">Context, build, verify: how I run AI agents</title>
+  <desc id="d">Artem sets the scope and what correct means and decides what ships. Work moves from CONTEXT (brief and project memory) to BUILD (AI agents working in scope, one writer per file) to VERIFY (tests, a separate review, a check where the result is used). Evidence goes back to Artem. A check that fails twice stops the work for an audit. Every task ends in a handoff that records what was verified and what was not, and that becomes the next brief.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7D827C"/>
+    </marker>
+    <marker id="r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#C2603F"/>
+    </marker>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#2C312D" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <style>
+    text { font-family: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif; }
+    .lab { font-size: 28px; font-weight: 700; letter-spacing: 3px; fill: #1F2421; }
+    .sub { font-size: 23px; fill: #4C514C; }
+    .edge { font-size: 21px; fill: #646962; font-style: italic; }
+  </style>
+
+  <rect x="0" y="0" width="1200" height="690" rx="28" fill="#F3F0EA"/>
+
+  <!-- Artem -->
+  <rect x="265" y="34" width="670" height="96" rx="18" fill="#FFFFFF" stroke="#C2603F" stroke-width="2.5"/>
+  <text x="600" y="74" text-anchor="middle" class="lab">ARTEM</text>
+  <text x="600" y="110" text-anchor="middle" class="sub">sets scope and what “correct” means · decides what ships</text>
+
+  <!-- brief: Artem to CONTEXT -->
+  <path d="M265,82 C230,82 230,140 230,206" fill="none" stroke="#7D827C" stroke-width="3" marker-end="url(#a)"/>
+  <text x="246" y="168" class="edge">brief</text>
+
+  <!-- evidence: VERIFY to Artem -->
+  <path d="M1072,318 C1140,318 1140,82 939,82" fill="none" stroke="#7D827C" stroke-width="3" marker-end="url(#a)"/>
+  <text x="1090" y="178" text-anchor="end" class="edge">evidence</text>
+
+  <!-- stop and audit: VERIFY back to BUILD -->
+  <path d="M930,214 C905,160 735,160 712,210" fill="none" stroke="#C2603F" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#r)"/>
+  <text x="822" y="160" text-anchor="middle" class="edge" style="fill:#B3532F">fails twice: stop and audit</text>
+
+  <!-- tiles -->
+  <rect x="130" y="220" width="200" height="200" rx="30" fill="#E7E1D3" stroke="#D3CAB6" stroke-width="2" filter="url(#s)"/>
+  <g fill="#6F7A6C"><circle cx="190" cy="320" r="9"/><circle cx="217" cy="320" r="9"/><circle cx="244" cy="320" r="9"/><circle cx="271" cy="320" r="9"/></g>
+
+  <rect x="500" y="220" width="200" height="200" rx="30" fill="#2C312D" filter="url(#s)"/>
+  <g fill="#E9E5DB"><rect x="552" y="292" width="96" height="10" rx="5"/><rect x="540" y="314" width="120" height="10" rx="5"/><rect x="552" y="336" width="96" height="10" rx="5"/></g>
+
+  <rect x="870" y="220" width="200" height="200" rx="30" fill="#5E8B6D" filter="url(#s)"/>
+  <circle cx="970" cy="320" r="42" fill="none" stroke="#F3F0EA" stroke-width="9"/>
+  <circle cx="970" cy="320" r="10" fill="#F3F0EA"/>
+
+  <!-- flow arrows -->
+  <line x1="338" y1="320" x2="490" y2="320" stroke="#7D827C" stroke-width="3" marker-end="url(#a)"/>
+  <line x1="708" y1="320" x2="860" y2="320" stroke="#7D827C" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- labels -->
+  <text x="230" y="470" text-anchor="middle" class="lab">CONTEXT</text>
+  <text x="230" y="504" text-anchor="middle" class="sub">brief + project memory</text>
+  <text x="230" y="532" text-anchor="middle" class="sub">decisions, handoffs, wiki</text>
+
+  <text x="600" y="470" text-anchor="middle" class="lab">BUILD</text>
+  <text x="600" y="504" text-anchor="middle" class="sub">AI agents work in scope</text>
+  <text x="600" y="532" text-anchor="middle" class="sub">one writer per file</text>
+
+  <text x="970" y="470" text-anchor="middle" class="lab">VERIFY</text>
+  <text x="970" y="504" text-anchor="middle" class="sub">tests + a separate review</text>
+  <text x="970" y="532" text-anchor="middle" class="sub">checked where it is used</text>
+
+  <!-- handoff loop -->
+  <path d="M970,552 L970,592 Q970,606 956,606 L244,606 Q230,606 230,592 L230,558" fill="none" stroke="#7D827C" stroke-width="3" marker-end="url(#a)"/>
+  <text x="600" y="646" text-anchor="middle" class="sub">handoff: what was verified, what was not → the next brief</text>
+</svg>
